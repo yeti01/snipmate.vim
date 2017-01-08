@@ -256,14 +256,15 @@ endf
 fun! ShowAvailableSnips()
 	let line  = getline('.')
 	let col   = col('.')
-	let word  = matchstr(getline('.'), '\S\+\%'.col.'c')
+	let word  = matchstr(line, '\S\+\%'.col.'c')
 	let words = [word]
 	if stridx(word, '.')
 		let words += split(word, '\.', 1)
 	endif
 	let matchlen = 0
-	let matches = []
+	let list = []
 	for scope in [bufnr('%')] + split(&ft, '\.') + ['_']
+		let matches = []
 		for trigger in keys(get(s:multi_snips, scope, {}))
 			for word in words
 				if word == ''
@@ -275,12 +276,13 @@ fun! ShowAvailableSnips()
 				endif
 			endfor
 		endfor
+		let list += sort(matches)
 	endfor
 
 	" This is to avoid a bug with Vim when using complete(col - matchlen, matches)
 	" (Issue#46 on the Google Code snipMate issue tracker).
 	call setline(line('.'), substitute(line, repeat('.', matchlen).'\%'.col.'c', '', ''))
-	call complete(col, matches)
+	call complete(col, list)
 	return ''
 endf
 " vim:noet:sw=4:ts=4:ft=vim
