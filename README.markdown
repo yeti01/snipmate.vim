@@ -1,3 +1,5 @@
 ## snipMate
 
-The most recent version of snipMate is now available at [@garbas/vim-snipmate](https://github.com/garbas/vim-snipmate).
+Forked from the latest version 0.84 of msanders.
+
+No additional plugins required.
