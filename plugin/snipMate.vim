@@ -218,7 +218,8 @@ fun s:GetSnippet(word, scope)
 	let word = a:word | let snippet = ''
 	while snippet == ''
 		if exists('s:multi_snips["'.a:scope.'"]["'.escape(word, '\"').'"]')
-			let snippet = s:ChooseSnippet(a:scope, word)
+			let s = s:ChooseSnippet(a:scope, word)
+			let snippet = join(s, "\n")
 			if snippet == '' | break | endif
 		else
 			if match(word, '\W\w') == -1 | break | endif
