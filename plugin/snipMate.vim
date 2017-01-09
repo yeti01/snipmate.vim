@@ -179,6 +179,10 @@ fun! TriggerSnippet()
 	if exists('g:snipPos') | return snipMate#jumpTabStop(0) | endif
 
 	let word = matchstr(getline('.'), '\S\+\%'.col('.').'c')
+	" check for convenient snippet '.'
+	if matchend(word, "\\.") == strlen(word)
+		let word = "."
+	endif
 	for scope in [bufnr('%')] + split(&ft, '\.') + ['_']
 		let [trigger, snippet] = s:GetSnippet(word, scope)
 		" If word is a trigger for a snippet, delete the trigger & expand
