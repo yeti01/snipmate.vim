@@ -1,83 +1,50 @@
-# #import <...>
-snippet Imp
+# Objective C Snippets
+snippet import <...>
 	#import <${1:Cocoa/Cocoa.h}>${2}
-# #import "..."
-snippet imp
+snippet import "..."
 	#import "${1:`Filename()`.h}"${2}
-# @selector(...)
-snippet sel
+snippet selector
 	@selector(${1:method}:)${3}
-# @"..." string
-snippet s
+snippet "
 	@"${1}"${2}
-# Object
-snippet o
+snippet object
 	${1:NSObject} *${2:foo} = [${3:$1 alloc}]${4};${5}
-# NSLog(...)
 snippet log
 	NSLog(@"${1:%@}"${2});${3}
-# Class
-snippet objc
+snippet interface
 	@interface ${1:`Filename('', 'someClass')`} : ${2:NSObject}
 	{
+	${3}
 	}
-	@end
 
-	@implementation $1
-	${3}
 	@end
-# Class Interface
-snippet int
-	@interface ${1:`Filename('', 'someClass')`} : ${2:NSObject}
-	{${3}
-	}
-	${4}
-	@end
-snippet @interface
-	@interface ${1:`Filename('', 'someClass')`} : ${2:NSObject}
-	{${3}
-	}
-	${4}
-	@end
-# Class Implementation
-snippet impl
+snippet implementation
 	@implementation ${1:`Filename('', 'someClass')`}
 	${2}
 	@end
-snippet @implementation
-	@implementation ${1:`Filename('', 'someClass')`}
-	${2}
-	@end
-# Protocol
-snippet pro
+snippet protocol
 	@protocol ${1:`Filename('$1Delegate', 'MyProtocol')`} ${2:<NSObject>}
 	${3}
 	@end
-snippet @protocol
-	@protocol ${1:`Filename('$1Delegate', 'MyProtocol')`} ${2:<NSObject>}
-	${3}
-	@end
-# init Definition
 snippet init
 	- (id)init
 	{
-		if (self = [super init]) {
+		if (self = [super init])
+		{
 			${1}
 		}
 		return self;
 	}
-# dealloc Definition
 snippet dealloc
 	- (void) dealloc
 	{
 		${1:deallocations}
 		[super dealloc];
 	}
-snippet su
+snippet super
 	[super ${1:init}]${2}
-snippet ibo
+snippet outlet
 	IBOutlet ${1:NSSomeClass} *${2:$1};${3}
-# Category
 snippet cat
 	@interface ${1:NSObject} (${2:MyCategory})
 	@end
@@ -85,50 +52,40 @@ snippet cat
 	@implementation $1 ($2)
 	${3}
 	@end
-# Category Interface
 snippet cath
 	@interface ${1:`Filename('$1', 'NSObject')`} (${2:MyCategory})
 	${3}
 	@end
-# Method
 snippet m
 	- (${1:id})${2:method}
 	{
 		${3}
 	}
-# Method declaration
 snippet md
 	- (${1:id})${2:method};${3}
-# IBAction declaration
 snippet ibad
 	- (IBAction)${1:method}:(${2:id})sender;${3}
-# IBAction method
 snippet iba
 	- (IBAction)${1:method}:(${2:id})sender
 	{
 		${3}
 	}
-# awakeFromNib method
 snippet wake
 	- (void)awakeFromNib
 	{
 		${1}
 	}
-# Class Method
 snippet M
 	+ (${1:id})${2:method}
 	{
 		${3:return nil;}
 	}
-# Sub-method (Call super)
 snippet sm
 	- (${1:id})${2:method}
 	{
 		[super $2];${3}
 		return self;
 	}
-# Accessor Methods For:
-# Object
 snippet objacc
 	- (${1:id})${2:thing}
 	{
@@ -141,107 +98,74 @@ snippet objacc
 		[$2 release];
 		$2 = $3;
 	}${4}
-# for (object in array)
-snippet forin
-	for (${1:Class} *${2:some$1} in ${3:array}) {
+snippet for object
+	for (${1:Class} *${2:some$1} in ${3:array})
+	{
 		${4}
 	}
-snippet fore
-	for (${1:object} in ${2:array}) {
+snippet for in
+	for (${1:object} in ${2:array})
+	{
 		${3:statements}
 	}
-snippet forarray
+snippet for array
 	unsigned int ${1:object}Count = [${2:array} count];
 
-	for (unsigned int index = 0; index < $1Count; index++) {
+	for (unsigned int index = 0; index < $1Count; index++)
+	{
 		${3:id} $1 = [$2 $1AtIndex:index];
 		${4}
 	}
-snippet fora
-	unsigned int ${1:object}Count = [${2:array} count];
-
-	for (unsigned int index = 0; index < $1Count; index++) {
-		${3:id} $1 = [$2 $1AtIndex:index];
-		${4}
-	}
-# Try / Catch Block
-snippet	@try
-	@try {
+snippet	try
+	@try
+	{
 		${1:statements}
 	}
-	@catch (NSException * e) {
+	@catch (NSException * e)
+	{
 		${2:handler}
 	}
-	@finally {
+	@finally
+	{
 		${3:statements}
 	}
-snippet @catch
-	@catch (${1:exception}) {
-		${2:handler}
-	}
-snippet @finally
-	@finally {
-		${1:statements}
-	}
-# IBOutlet
-# @property (Objective-C 2.0)
-snippet prop
+snippet property
 	@property (${1:retain}) ${2:NSSomeClass} ${3:*$2};${4}
-# @synthesize (Objective-C 2.0)
-snippet syn
+snippet synthesize
 	@synthesize ${1:property};${2}
-# [[ alloc] init]
 snippet alloc
 	[[${1:foo} alloc] init${2}];${3}
-snippet a
-	[[${1:foo} alloc] init${2}];${3}
-# retain
-snippet ret
+snippet retain
 	[${1:foo} retain];${2}
-# release
-snippet rel
+snippet release
 	[${1:foo} release];
-# autorelease
-snippet arel
+snippet autorelease
 	[${1:foo} autorelease];
-# autorelease pool
-snippet pool
+snippet autoreleasepool
 	NSAutoreleasePool *${1:pool} = [[NSAutoreleasePool alloc] init];
 	${2:/* code */}
 	[$1 drain];
-# Throw an exception
-snippet except
+snippet exception
 	NSException *${1:badness};
 	$1 = [NSException exceptionWithName:@"${2:$1Name}"
 	                             reason:@"${3}"
 	                           userInfo:nil];
 	[$1 raise];
-snippet prag
+snippet pragma
 	#pragma mark ${1:-}
-snippet cl
+snippet class
 	@class ${1:Foo};${2}
 snippet color
 	[[NSColor ${1:blackColor}] set];
-# NSArray
-snippet array
+snippet array NSArray
+	NSArray *${1:array};${2}
+snippet array NSMutableArray
 	NSMutableArray *${1:array} = [NSMutable array];${2}
-snippet nsa
-	NSArray ${1}
-snippet nsma
-	NSMutableArray ${1}
-snippet aa
-	NSArray * array;${1}
-snippet ma
-	NSMutableArray * array;${1}
-# NSDictionary
-snippet dict
-	NSMutableDictionary *${1:dict} = [NSMutableDictionary dictionary];${2}
-snippet nsd
+snippet dictionary NSDictionary
 	NSDictionary ${1}
-snippet nsmd
-	NSMutableDictionary ${1}
-# NSString
-snippet nss
+snippet dictionary NSMutableDictionary
+	NSMutableDictionary *${1:dict} = [NSMutableDictionary dictionary];${2}
+snippet string NSString
 	NSString ${1}
-snippet nsms
+snippet string NSMutableString
 	NSMutableString ${1}

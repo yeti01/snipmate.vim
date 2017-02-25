@@ -1,6 +1,6 @@
-# #!/bin/bash
+# Shell Snippets
 snippet #!
-	#!/bin/bash
+	#!/bin/sh
 	
 snippet if
 	if [[ ${1:condition} ]]; then
@@ -13,7 +13,7 @@ snippet for
 	for (( ${2:i} = 0; $2 < ${1:count}; $2++ )); do
 		${3:#statements}
 	done
-snippet wh
+snippet while
 	while [[ ${1:condition} ]]; do
 		${2:#statements}
 	done
@@ -26,3 +26,16 @@ snippet case
 		${2:pattern})
 			${3};;
 	esac
+snippet getopts
+	while getopts '${1:o}' ${2:opts}
+	do
+		case $$2 in
+		${3:o0})
+			${4:#staments};;
+		esac
+	done
+snippet function
+	${1:function_name}()
+	{
+		${2:/* code */}
+	}

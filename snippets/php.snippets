@@ -1,18 +1,18 @@
+# PHP Snippets
 snippet php
 	<?php
 	${1}
 	?>
-snippet ec
+snippet echo
 	echo "${1:string}"${2};
-snippet inc
+snippet include
 	include '${1:file}';${2}
-snippet inc1
+snippet include_once
 	include_once '${1:file}';${2}
-snippet req
+snippet require
 	require '${1:file}';${2}
-snippet req1
+snippet require_once
 	require_once '${1:file}';${2}
-# $GLOBALS['...']
 snippet globals
 	$GLOBALS['${1:variable}']${2: = }${3:something}${4:;}${5}
 snippet $_ COOKIE['...']
@@ -21,7 +21,7 @@ snippet $_ ENV['...']
 	$_ENV['${1:variable}']${2}
 snippet $_ FILES['...']
 	$_FILES['${1:variable}']${2}
-snippet $_ Get['...']
+snippet $_ GET['...']
 	$_GET['${1:variable}']${2}
 snippet $_ POST['...']
 	$_POST['${1:variable}']${2}
@@ -31,161 +31,64 @@ snippet $_ SERVER['...']
 	$_SERVER['${1:variable}']${2}
 snippet $_ SESSION['...']
 	$_SESSION['${1:variable}']${2}
-# Start Docblock
 snippet /*
 	/**
 	 * ${1}
 	 **/
-# Class - post doc
-snippet doc_cp
-	/**
-	 * ${1:undocumented class}
-	 *
-	 * @package ${2:default}
-	 * @author ${3:`g:snips_author`}
-	**/${4}
-# Class Variable - post doc
-snippet doc_vp
-	/**
-	 * ${1:undocumented class variable}
-	 *
-	 * @var ${2:string}
-	 **/${3}
-# Class Variable
-snippet doc_v
-	/**
-	 * ${3:undocumented class variable}
-	 *
-	 * @var ${4:string}
-	 **/
-	${1:var} $${2};${5}
-# Class
-snippet doc_c
-	/**
-	 * ${3:undocumented class}
-	 *
-	 * @packaged ${4:default}
-	 * @author ${5:`g:snips_author`}
-	 **/
-	${1:}class ${2:}
-	{${6}
-	} // END $1class $2
-# Constant Definition - post doc
-snippet doc_dp
-	/**
-	 * ${1:undocumented constant}
-	 **/${2}
-# Constant Definition
-snippet doc_d
-	/**
-	 * ${3:undocumented constant}
-	 **/
-	define(${1}, ${2});${4}
-# Function - post doc
-snippet doc_fp
-	/**
-	 * ${1:undocumented function}
-	 *
-	 * @return ${2:void}
-	 * @author ${3:`g:snips_author`}
-	 **/${4}
-# Function signature
-snippet doc_s
-	/**
-	 * ${4:undocumented function}
-	 *
-	 * @return ${5:void}
-	 * @author ${6:`g:snips_author`}
-	 **/
-	${1}function ${2}(${3});${7}
-# Function
-snippet doc_f
-	/**
-	 * ${4:undocumented function}
-	 *
-	 * @return ${5:void}
-	 * @author ${6:`g:snips_author`}
-	 **/
-	${1}function ${2}(${3})
-	{${7}
+snippet	class
+	class ${1:`Filename()`}
+	{
+		${2}
 	}
-# Header
-snippet doc_h
-	/**
-	 * ${1}
-	 *
-	 * @author ${2:`g:snips_author`}
-	 * @version ${3:$Id$}
-	 * @copyright ${4:$2}, `strftime('%d %B, %Y')`
-	 * @package ${5:default}
-	 **/
-	
-	/**
-	 * Define DocBlock
-	 *//
-# Interface
-snippet doc_i
-	/**
-	 * ${2:undocumented class}
-	 *
-	 * @package ${3:default}
-	 * @author ${4:`g:snips_author`}
-	 **/
-	interface ${1:}
-	{${5}
-	} // END interface $1
-# class ...
-snippet class
-	/**
-	 * ${1}
-	 **/
-	class ${2:ClassName}
+snippet interface
+	interface ${1:`Filename()`}
+	{
+		${2}
+	}
+snippet function
+	function ${1}(${2})
 	{
 		${3}
-		function ${4:__construct}(${5:argument})
-		{
-			${6:// code...}
-		}
 	}
-# define(...)
-snippet def
+snippet method
+	${1:protected} function ${2:foo}()
+	{
+		${3}
+	}
+snippet define
 	define('${1}'${2});${3}
-# defined(...)
-snippet def?
+snippet defined
 	${1}defined('${2}')${3}
-snippet wh
-	while (${1:/* condition */}) {
+snippet while
+	while (${1:/* condition */})
+	{
 		${2:// code...}
 	}
-# do ... while
 snippet do
-	do {
+	do
+	{
 		${2:// code... }
 	} while (${1:/* condition */});
 snippet if
-	if (${1:/* condition */}) {
+	if (${1:/* condition */})
+	{
 		${2:// code...}
-	}
-snippet ife
-	if (${1:/* condition */}) {
-		${2:// code...}
-	} else {
-		${3:// code...}
-	}
-	${4}
-snippet else
-	else {
-		${1:// code...}
 	}
 snippet elseif
-	elseif (${1:/* condition */}) {
+	elseif (${1:/* condition */})
+	{
 		${2:// code...}
 	}
-# Tertiary conditional
-snippet t
-	$${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b};${5}
+snippet else
+	else
+	{
+		${1:// code...}
+	}
+snippet ?
+	${1:/* condition */} ? ${2:a} : ${3:b}
 snippet switch
-	switch ($${1:variable}) {
+	switch ($${1:variable})
+	{
 		case '${2:value}':
 			${3:// code...}
 			break;
@@ -199,18 +102,61 @@ snippet case
 		${2:// code...}
 		break;${3}
 snippet for
-	for ($${2:i} = 0; $$2 < ${1:count}; $$2${3:++}) {
+	for ($${2:i} = 0; $$2 < ${1:count}; $$2${3:++})
+	{
 		${4: // code...}
 	}
 snippet foreach
-	foreach ($${1:variable} as $${2:key}) {
-		${3:// code...}
-	}
-snippet fun
-	${1:public }function ${2:FunctionName}(${3})
+	foreach ($${1:variable} as $${2:key}${3: => $value})
 	{
-		${4:// code...}
+		${4}
 	}
-# $... = array (...)
 snippet array
 	$${1:arrayName} = array('${2}' => ${3});${4}
+snippet namespace
+	namespace ${1:Foo\Bar\Baz};
+	${2}
+snippet use
+	use ${1:Foo\Bar\Baz};
+	${2}
+snippet this
+	$this->
+snippet set
+	${1:public} function set${2:Var}($${3:value})
+	{
+		$this->${4:$2} = $$3;
+	}
+snippet get
+	${1:public} function get${2}()
+	{
+		return $this->${3:$2};
+	}
+snippet try
+	try
+	{
+		${2}
+	}
+	catch (${1:Exception} $e)
+	{
+	}
+snippet var_dump
+	var_dump(${1});
+snippet print_r
+	print_r(${1});
+snippet error_log
+	error_log(print_r($${1:foo}, true), 3, '${2:/tmp/debug.log}');
+snippet http_redirect
+	header ("HTTP/1.1 301 Moved Permanently");
+	header ("Location: ".URL);
+	exit();
+snippet array_map
+	$${1:foo} = array_map(function($${2:v})
+	{
+		${3}
+		return $$2;
+	}, $$1);
+snippet array_walk
+	array_walk($${1:foo}, function(&$${2:v}, $${3:k})
+	{
+		$$2 = ${4};
+	});
