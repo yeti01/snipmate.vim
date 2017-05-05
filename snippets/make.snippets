@@ -34,7 +34,7 @@ snippet c++ gcc
 snippet c++ MS Visual C++
 	CXX = cl.exe
 	LD = link.exe
-	CXXFLAGS = /c /Wall /wd4100 /wd4255
+	CXXFLAGS = /c /W4 /EHsc /wd4255
 
 	OBJS = ${1:program}.obj
 
